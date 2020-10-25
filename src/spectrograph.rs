@@ -75,7 +75,7 @@ impl SpecOptionsBuilder {
     SpecOptionsBuilder {
       width,
       height,
-      sample_rate: 8000,
+      sample_rate: 16000,
       data: vec![],
       window: utility::rectangular,
       greyscale: false,
