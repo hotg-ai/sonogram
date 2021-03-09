@@ -18,10 +18,8 @@
  */
 
 use num::complex::Complex;
-use std::f32;
-use std::fs::File;
-use std::io::BufWriter;
-use std::path::Path;
+use alloc;
+use alloc::vec::*;
 
 use hound;// To use encoder.set()
 
@@ -215,9 +213,7 @@ impl SpecOptionsBuilder {
     }
 
     let audio_length_sec = self.data.len() as u32 / self.sample_rate;
-    if self.verbose {
-      println!("Length (s): {}", audio_length_sec);
-    }
+
 
     let mut gradient = ColourGradient::new();
 
@@ -305,17 +301,7 @@ impl Spectrograph {
     assert!(0.0 <= overlap && overlap < 1.0);
     let step = (chunk_len as f32 * (1.0 - overlap)) as usize;
 
-    if self.verbose {
-      // Print out computation info
-      println!("Computing spectrogram...");
-      println!(
-        "Chunk: {} Overlap: {}",
-        chunk_len,
-        overlap * chunk_len as f32
-      );
-      println!("Step len: {}", step);
-      println!("Data len: {}", self.data.len());
-    }
+   
 
     // Pad the data
     let mut new_len = 0;
@@ -484,9 +470,7 @@ impl Spectrograph {
     self.spectrogram.reserve(self.width as usize);
 
     let num_chunks = self.get_number_of_chunks(chunk_len, step) as f32;
-    if self.verbose {
-      println!("Number of Chunks: {}", num_chunks);
-    }
+
 
     let chunk_width_ratio = num_chunks / self.width as f32;
 

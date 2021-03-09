@@ -17,8 +17,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-use std::f32;
-use std::f32::consts::PI;
+use core::f32;
+use core::f32::consts::PI;
 
 pub fn reverse_bits(val: usize, power: usize) -> usize {
   let mut reversed = 0;
