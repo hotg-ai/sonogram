@@ -12,5 +12,4 @@ categories = ["multimedia::images", "science", "multimedia::audio", "visualizati
 
 
 [dependencies]
-hound = "3.4"
 num = "0.2"

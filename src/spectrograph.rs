@@ -19,7 +19,6 @@
 use num::complex::Complex;
 use alloc::vec::*;
 
-use hound;// To use encoder.set()
 
 
 use core::f32;
