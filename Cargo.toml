@@ -12,4 +12,4 @@ categories = ["multimedia::images", "science", "multimedia::audio", "visualizati
 
 
 [dependencies]
-num = "0.2"
+num = { version = "0.4", default-features = false}

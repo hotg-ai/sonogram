@@ -17,6 +17,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 use alloc::vec::*;
+use core::f32;
 
 /// Colours required for a PNG file, includes the alpha channel.
 #[derive(Clone)]
