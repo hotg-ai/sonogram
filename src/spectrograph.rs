@@ -104,20 +104,20 @@ impl SpecOptionsBuilder {
   ///
   ///  * `fname` - The path to the file.
   ///
-  pub fn load_data_from_file(&mut self, fname: &Path) -> Result<&mut Self, SonogramError> {
-    let mut reader = hound::WavReader::open(fname)?;
+  // pub fn load_data_from_file(&mut self, fname: &Path) -> Result<&mut Self, SonogramError> {
+  //   let mut reader = hound::WavReader::open(fname)?;
 
-    // Can only handle 16 bit data
-    assert_eq!(reader.spec().bits_per_sample, 16);
+  //   // Can only handle 16 bit data
+  //   assert_eq!(reader.spec().bits_per_sample, 16);
 
-    // TODO: We want to be able to handle multiple channels
-    assert_eq!(reader.spec().channels, 1);
+  //   // TODO: We want to be able to handle multiple channels
+  //   assert_eq!(reader.spec().channels, 1);
 
-    let data = reader.samples().map(|x| x.unwrap()).collect();
-    let sample_rate = reader.spec().sample_rate;
+  //   let data = reader.samples().map(|x| x.unwrap()).collect();
+  //   let sample_rate = reader.spec().sample_rate;
 
-    Ok(self.load_data_from_memory(data, sample_rate))
-  }
+  //   Ok(self.load_data_from_memory(data, sample_rate))
+  // }
 
   /// Load data directly from memory - i16 version.
   ///
