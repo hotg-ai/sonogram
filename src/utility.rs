@@ -19,6 +19,7 @@
 
 use core::f32;
 use core::f32::consts::PI;
+use libm::*;
 
 pub fn reverse_bits(val: usize, power: usize) -> usize {
   let mut reversed = 0;
@@ -36,7 +37,7 @@ pub fn rectangular(_n: u32, _samples: u32) -> f32 {
 }
 
 pub fn hann_function(n: u32, samples: u32) -> f32 {
-  0.5 * (1.0 - f32::cos((2.0 * PI * n as f32) / (samples as f32 - 1.0)))
+  0.5 * (1.0 - libm::cosf((2.0 * PI * n as f32) / (samples as f32 - 1.0)))
 }
 
 pub fn blackman_harris(n: u32, samples: u32) -> f32 {
@@ -47,5 +48,5 @@ pub fn blackman_harris(n: u32, samples: u32) -> f32 {
 
   let arg = 2.0 * PI * n as f32 / (samples as f32 - 1.0);
 
-  A0 - A1 * f32::cos(arg) + A2 * f32::cos(2.0 * arg) - A3 * f32::cos(3.0 * arg)
+  A0 - A1 * libm::cosf(arg) + A2 * libm::cosf(2.0 * arg) - A3 * libm::cosf(3.0 * arg)
 }

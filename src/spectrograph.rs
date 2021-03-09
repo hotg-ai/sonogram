@@ -24,6 +24,8 @@ use alloc::vec::*;
 use core::f32;
 use core::f32::consts::*;
 
+use libm::*;
+
 use crate::colour_gradient::{ColourGradient, RGBAColour};
 use crate::errors::SonogramError;
 use crate::utility;
@@ -94,27 +96,6 @@ impl SpecOptionsBuilder {
     self.window = window;
     self
   }
-
-  /// Load a .wav file to memory and use that file as the input.
-  ///
-  /// # Arguments
-  ///
-  ///  * `fname` - The path to the file.
-  ///
-  // pub fn load_data_from_file(&mut self, fname: &Path) -> Result<&mut Self, SonogramError> {
-  //   let mut reader = hound::WavReader::open(fname)?;
-
-  //   // Can only handle 16 bit data
-  //   assert_eq!(reader.spec().bits_per_sample, 16);
-
-  //   // TODO: We want to be able to handle multiple channels
-  //   assert_eq!(reader.spec().channels, 1);
-
-  //   let data = reader.samples().map(|x| x.unwrap()).collect();
-  //   let sample_rate = reader.spec().sample_rate;
-
-  //   Ok(self.load_data_from_memory(data, sample_rate))
-  // }
 
   /// Load data directly from memory - i16 version.
   ///
@@ -286,7 +267,7 @@ impl Spectrograph {
     let trig_arg = 2.0 * f32::consts::PI * q / p;
 
     // VVV Comment out this line to use the cache VVVV
-    Complex::new(f32::cos(trig_arg), f32::sin(trig_arg))
+    Complex::new(libm::cosf(trig_arg), libm::sinf(trig_arg))
   }
 
   ///
@@ -422,14 +403,14 @@ impl Spectrograph {
     let multiplier = 0.5;
     let img_len_used = data_len as f32 * multiplier;
 
-    let log_coef = 1.0 / (self.height as f32 + 1.0).log(f32::consts::E) * img_len_used;
+    let log_coef = 1.0 / libm::logf(self.height as f32 + 1.0) * img_len_used;
 
     let mut result = Vec::with_capacity((self.height * self.width) as usize);
 
     for y in (0..self.height).rev() {
       for x in 0..self.width {
         let freq = if log_freq {
-          img_len_used - (log_coef * (self.height as f32 + 1.0 - y as f32).log(f32::consts::E))
+          img_len_used - (log_coef * libm::logf(self.height as f32 + 1.0 - y as f32))
         } else {
           let ratio = y as f32 / self.height as f32;
           ratio * img_len_used
@@ -444,7 +425,7 @@ impl Spectrograph {
   }
 
   fn get_real(&mut self, c: Complex<f32>) -> f32 {
-    0.5 * (c.norm_sqr() + 1.0).log10()
+    0.5 * libm::log10f(c.norm_sqr() + 1.0)
   }
 
   fn get_colour(&mut self, c: Complex<f32>, threshold: f32) -> RGBAColour {

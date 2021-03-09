@@ -12,4 +12,5 @@ categories = ["multimedia::images", "science", "multimedia::audio", "visualizati
 
 
 [dependencies]
+libm = { version = "0.2.1", default-features = false}
 num = { version = "0.4", default-features = false}
