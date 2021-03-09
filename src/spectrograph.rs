@@ -23,6 +23,10 @@ use alloc::vec::*;
 
 use hound;// To use encoder.set()
 
+
+use core::f32;
+use core::f32::consts::*;
+
 use crate::colour_gradient::{ColourGradient, RGBAColour};
 use crate::errors::SonogramError;
 use crate::utility;
