@@ -425,7 +425,8 @@ impl Spectrograph {
   }
 
   fn get_real(&mut self, c: Complex<f32>) -> f32 {
-    0.5 * libm::log10f(c.norm_sqr() + 1.0)
+    // 0.5 * libm::log10f(c.norm_sqr() + 1.0)
+    c.norm_sqr()
   }
 
   fn get_colour(&mut self, c: Complex<f32>, threshold: f32) -> RGBAColour {
